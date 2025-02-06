@@ -2,86 +2,89 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ObjectPool<T> where T : MonoBehaviour
+namespace ObjectPoolContent
 {
-    private Transform _container;
-    private List<T> _poolGeneric;
-
-    public ObjectPool(T prefab, int count, Transform container)
+    public class ObjectPool<T> where T : MonoBehaviour
     {
-        _container = container;
-        Initialize(count, prefab);
-    }
+        private Transform _container;
+        private List<T> _poolGeneric;
 
-    public bool AutoExpand { get; private set; }
-
-    public bool TryGetObject(out T spawned, T prefabs)
-    {
-        var filter = _poolGeneric.Where(p => p.gameObject.activeSelf == false);
-        int index = Random.Range(0, filter.Count());
-
-        if (filter.Count() == 0)
+        public ObjectPool(T prefab, int count, Transform container)
         {
-            if (AutoExpand)
+            _container = container;
+            Initialize(count, prefab);
+        }
+
+        public bool AutoExpand { get; private set; }
+
+        public bool TryGetObject(out T spawned, T prefabs)
+        {
+            var filter = _poolGeneric.Where(p => p.gameObject.activeSelf == false);
+            int index = Random.Range(0, filter.Count());
+
+            if (filter.Count() == 0)
             {
-                spawned = CreateObject(prefabs);
-                return spawned != null;
+                if (AutoExpand)
+                {
+                    spawned = CreateObject(prefabs);
+                    return spawned != null;
+                }
+                else
+                {
+                    spawned = default;
+                    return false;
+                }
             }
-            else
+
+            spawned = filter.ElementAt(index);
+            return spawned != null;
+        }
+
+        public void AddObject(T obj)
+        {
+            _poolGeneric.Add(obj);
+        }
+
+        public T GetFirstObject()
+        {
+            T filter = _poolGeneric.FirstOrDefault(p => p.gameObject.activeSelf == false);
+            return filter;
+        }
+
+        public void EnableAutoExpand()
+        {
+            AutoExpand = true;
+        }
+
+        public void DisableAutoExpand()
+        {
+            AutoExpand = false;
+        }
+
+        public void Reset()
+        {
+            foreach (var item in _poolGeneric)
+                item.gameObject.SetActive(false);
+        }
+
+        private void Initialize(int count, T prefabs)
+        {
+            _poolGeneric = new List<T>();
+
+            for (int i = 0; i < count; i++)
             {
-                spawned = default;
-                return false;
+                var spawned = Object.Instantiate(prefabs, _container.transform);
+                spawned.gameObject.SetActive(false);
+                _poolGeneric.Add(spawned);
             }
         }
 
-        spawned = filter.ElementAt(index);
-        return spawned != null;
-    }
-
-    public void AddObject(T obj)
-    {
-        _poolGeneric.Add(obj);
-    }
-
-    public T GetFirstObject()
-    {
-        T filter = _poolGeneric.FirstOrDefault(p => p.gameObject.activeSelf == false);
-        return filter;
-    }
-
-    public void EnableAutoExpand()
-    {
-        AutoExpand = true;
-    }
-
-    public void DisableAutoExpand()
-    {
-        AutoExpand = false;
-    }
-
-    public void Reset()
-    {
-        foreach (var item in _poolGeneric)
-            item.gameObject.SetActive(false);
-    }
-
-    private void Initialize(int count, T prefabs)
-    {
-        _poolGeneric = new List<T>();
-
-        for (int i = 0; i < count; i++)
+        private T CreateObject(T prefabs)
         {
             var spawned = Object.Instantiate(prefabs, _container.transform);
-            spawned.gameObject.SetActive(false);
+            spawned.gameObject.SetActive(true);
             _poolGeneric.Add(spawned);
+            return spawned;
         }
-    }
-
-    private T CreateObject(T prefabs)
-    {
-        var spawned = Object.Instantiate(prefabs, _container.transform);
-        spawned.gameObject.SetActive(true);
-        _poolGeneric.Add(spawned);
-        return spawned;
     }
 }

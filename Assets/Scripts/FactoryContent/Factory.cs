@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Enums;
 using Interfaces;
@@ -18,12 +17,15 @@ namespace FactoryContent
         private bool _isWorking;
         private int _randomIndex;
         
-        // public event Action ResourceCreated;
-        
         private void Start()
         {
             _waitForSeconds = new WaitForSeconds(_delay);
             StartWork();
+        }
+
+        public void CreateResource(ResourceType resource)
+        {
+            _storageFactory.AddResource(resource);
         }
 
         private void StartWork()
@@ -44,32 +46,5 @@ namespace FactoryContent
                 CreateResource(_resourceTypes[_randomIndex]);
             }
         }
-
-        public void CreateResource(ResourceType resource)
-        {
-            _storageFactory.AddResource(resource);
-            // ResourceCreated?.Invoke();
-        }
-        
-        /*public void CreateResource(ResourceType resource)
-        {
-            switch (resource)
-            {
-                case ResourceType.Stone:
-                  
-                    break;
-                case ResourceType.Metal:
-                    
-                    break;
-                case ResourceType.Wood:
-                    
-                    break;
-                default:
-                    Debug.Log("Unknown resource type");
-                    break;
-            }
-            
-            ResourceCreated?.Invoke();
-        }*/
     }
 }

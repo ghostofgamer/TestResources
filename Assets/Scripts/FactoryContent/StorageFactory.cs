@@ -1,6 +1,5 @@
 using System;
 using Enums;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace FactoryContent
@@ -13,27 +12,16 @@ namespace FactoryContent
 
         public int WoodValue { get; private set; }
 
-        public event Action ResourceAdded;
+        public event Action ResourceValueChanged;
 
         public void AddResource(ResourceType resource)
         {
-            switch (resource)
-            {
-                case ResourceType.Stone:
-                    StoneValue++;
-                    break;
-                case ResourceType.Metal:
-                    MetalValue++;
-                    break;
-                case ResourceType.Wood:
-                    WoodValue++;
-                    break;
-                default:
-                    Debug.Log("Unknown resource type");
-                    break;
-            }
+            ChangeResource(resource, 1);
+        }
 
-            ResourceAdded?.Invoke();
+        public void DecreaseResources(ResourceType resource)
+        {
+            ChangeResource(resource, -1);
         }
 
         public int GetValue(ResourceType resource)
@@ -42,17 +30,37 @@ namespace FactoryContent
             {
                 case ResourceType.Stone:
                     return StoneValue;
-                    break;
+
                 case ResourceType.Metal:
                     return MetalValue;
-                    break;
+
                 case ResourceType.Wood:
                     return WoodValue;
-                    break;
+
                 default:
                     return 0;
+            }
+        }
+
+        private void ChangeResource(ResourceType resource, int amount)
+        {
+            switch (resource)
+            {
+                case ResourceType.Stone:
+                    StoneValue += amount;
+                    break;
+                case ResourceType.Metal:
+                    MetalValue += amount;
+                    break;
+                case ResourceType.Wood:
+                    WoodValue += amount;
+                    break;
+                default:
+                    Debug.Log("Unknown resource type");
                     break;
             }
+
+            ResourceValueChanged?.Invoke();
         }
     }
 }

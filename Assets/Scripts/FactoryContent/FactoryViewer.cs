@@ -12,12 +12,12 @@ namespace FactoryContent
 
         private void OnEnable()
         {
-            _factoryStorage.ResourceAdded += Show; 
+            _factoryStorage.ResourceValueChanged += Show; 
         }
 
         private void OnDisable()
         {
-            _factoryStorage.ResourceAdded += Show;
+            _factoryStorage.ResourceValueChanged += Show;
         }
 
         private void Start()

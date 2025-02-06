@@ -1,13 +1,18 @@
-using UI.Buttons;
 using UnityEngine;
 
-public class StartLoaderButton : AbstractButton
+namespace UI.Buttons
 {
-    [SerializeField] private int _index;
-    [SerializeField] private AgentController _agentController;
-    
-    protected override void OnButtonClicked()
+    public class StartLoaderButton : AbstractButton
     {
-        _agentController.Init(_index);
+        [SerializeField] private int _index;
+        [SerializeField] private AgentController _agentController;
+        [SerializeField]private ResourcesArea _resourcesArea;
+    
+        protected override void OnButtonClicked()
+        {
+            if (!_resourcesArea.IsBusy) return;
+        
+            _agentController.Init(_index);
+        }
     }
 }

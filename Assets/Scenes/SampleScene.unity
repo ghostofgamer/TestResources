@@ -600,6 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _index: 2
   _agentController: {fileID: 516653307}
+  _resourcesArea: {fileID: 1996267822}
 --- !u!1001 &203572745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -829,6 +830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _index: 0
   _agentController: {fileID: 516653307}
+  _resourcesArea: {fileID: 1996267822}
 --- !u!1001 &218826488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1230,7 +1232,10 @@ MonoBehaviour:
   _resourcesArea: {fileID: 1996267822}
   _table: {fileID: 1079024852}
   _startPosition: {fileID: 952734323}
-  _storageTables: []
+  _storageTables:
+  - {fileID: 622447480}
+  - {fileID: 1985644274}
+  - {fileID: 1061497822}
 --- !u!1 &558303522
 GameObject:
   m_ObjectHideFlags: 0
@@ -3311,6 +3316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _index: 1
   _agentController: {fileID: 516653307}
+  _resourcesArea: {fileID: 1996267822}
 --- !u!1 &1009049542
 GameObject:
   m_ObjectHideFlags: 0
