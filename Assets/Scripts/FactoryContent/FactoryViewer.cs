@@ -8,19 +8,16 @@ namespace FactoryContent
         [SerializeField] private TMP_Text _metalValueText;
         [SerializeField] private TMP_Text _woodValueText;
         [SerializeField] private TMP_Text _stoneValueText;
-        // [SerializeField]private Factory _factory;
         [SerializeField]private StorageFactory _factoryStorage;
 
         private void OnEnable()
         {
-            _factoryStorage.ResourceAdded += Show;
-            // _factory.ResourceCreated += Show;
+            _factoryStorage.ResourceAdded += Show; 
         }
 
         private void OnDisable()
         {
             _factoryStorage.ResourceAdded += Show;
-            // _factory.ResourceCreated -= Show;
         }
 
         private void Start()
@@ -33,8 +30,6 @@ namespace FactoryContent
             _metalValueText.text = _factoryStorage.MetalValue.ToString();
             _stoneValueText.text = _factoryStorage.StoneValue.ToString();
             _woodValueText.text = _factoryStorage.WoodValue.ToString();
-            
-            // Debug.Log("Show");
         }
     }
 }

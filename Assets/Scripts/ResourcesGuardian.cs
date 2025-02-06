@@ -11,6 +11,7 @@ public class ResourcesGuardian : MonoBehaviour
     [SerializeField] private int _initialPoolSize = 1;
     [SerializeField] private Transform _container;
     [SerializeField] private StorageFactory _storageFactory;
+    [SerializeField] private ResourcesArea _resourcesArea;
 
     private Dictionary<ResourceType, ObjectPool<Resource>> _resourcePools;
 
@@ -31,13 +32,19 @@ public class ResourcesGuardian : MonoBehaviour
     public void ActivateResource(ResourceType type)
     {
         if (FindQuantity(type) <= 0) return;
+        if (_resourcesArea.IsBusy) return;
 
         if (_resourcePools.TryGetValue(type, out var pool))
         {
             if (pool.TryGetObject(out Resource resource, _resources.First(r => r.Type == type)))
+            {
+                _resourcesArea.PutItem(resource);
                 resource.gameObject.SetActive(true);
+            }
             else
+            {
                 Debug.Log("Continue");
+            }
         }
     }
 
