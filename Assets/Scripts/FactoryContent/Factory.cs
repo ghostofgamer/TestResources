@@ -3,7 +3,6 @@ using System.Collections;
 using Enums;
 using Interfaces;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace FactoryContent
@@ -11,20 +10,16 @@ namespace FactoryContent
     public class Factory : MonoBehaviour, IResourceFactory
     {
         [SerializeField] private float _delay;
-
-        // [SerializeField] private Resource[] _resourcePrefabs;
         [SerializeField] private ResourceType[] _resourceTypes;
+        [SerializeField]private StorageFactory _storageFactory;
 
         private WaitForSeconds _waitForSeconds;
         private Coroutine _coroutine;
         private bool _isWorking;
         private int _randomIndex;
-        public int StoneValue { get; private set; }
-        public int MetalValue { get; private set; }
-        public int WoodValue { get; private set; }
-
-        public event Action ResourceCreated;
-
+        
+        // public event Action ResourceCreated;
+        
         private void Start()
         {
             _waitForSeconds = new WaitForSeconds(_delay);
@@ -52,16 +47,22 @@ namespace FactoryContent
 
         public void CreateResource(ResourceType resource)
         {
+            _storageFactory.AddResource(resource);
+            // ResourceCreated?.Invoke();
+        }
+        
+        /*public void CreateResource(ResourceType resource)
+        {
             switch (resource)
             {
                 case ResourceType.Stone:
-                    StoneValue++;
+                  
                     break;
                 case ResourceType.Metal:
-                    MetalValue++;
+                    
                     break;
                 case ResourceType.Wood:
-                    WoodValue++;
+                    
                     break;
                 default:
                     Debug.Log("Unknown resource type");
@@ -69,7 +70,6 @@ namespace FactoryContent
             }
             
             ResourceCreated?.Invoke();
-        }
-
+        }*/
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enums;
+using FactoryContent;
 using ItemsContent;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class ResourcesGuardian : MonoBehaviour
     [SerializeField] private Resource[] _resources;
     [SerializeField] private int _initialPoolSize = 1;
     [SerializeField] private Transform _container;
+    [SerializeField] private StorageFactory _storageFactory;
 
     private Dictionary<ResourceType, ObjectPool<Resource>> _resourcePools;
 
@@ -26,9 +28,9 @@ public class ResourcesGuardian : MonoBehaviour
         }
     }
 
-    public void TryGetResource(ResourceType type)
+    public void ActivateResource(ResourceType type)
     {
-        Debug.Log("TEPEC " + type);
+        if (FindQuantity(type) <= 0) return;
 
         if (_resourcePools.TryGetValue(type, out var pool))
         {
@@ -39,44 +41,8 @@ public class ResourcesGuardian : MonoBehaviour
         }
     }
 
-    /*
-    public bool TryGetResource(ResourceType type)
+    private int FindQuantity(ResourceType type)
     {
-        if (_resourcePools.TryGetValue(type, out var pool))
-        {
-            return pool.TryGetObject(out Resource resource,_resources.First(r => r.Type == type));
-        }
-
-
-        return false;
-    }*/
-
-
-    /*private Dictionary<ResourceType, ObjectPool<Resource>> _resourcePools;
-
-    private void Start()
-    {
-        _resourcePools = new Dictionary<ResourceType, ObjectPool<Resource>>();
-
-        foreach (var resource in _resources)
-        {
-            var pool = new ObjectPool<Resource>(resource, _initialPoolSize, _container);
-            pool.EnableAutoExpand();
-            _resourcePools[resource.Type] = pool;
-        }
+        return _storageFactory.GetValue(type);
     }
-
-    public bool TryGetAndActivateResourceObject(ResourceType type)
-    {
-        if (_resourcePools.TryGetValue(type, out var pool))
-        {
-            if (pool.TryGetObject(out Resource resourceObject, _resources.First(r => r.Type == type)))
-            {
-                resourceObject.gameObject.SetActive(true);
-                return true;
-            }
-        }
-
-        return false;
-    }*/
 }

@@ -10,7 +10,7 @@ namespace UI.Buttons
         
         protected override void OnButtonClicked()
         {
-            resourcesGuardian.TryGetResource(_resourceType);
+            resourcesGuardian.ActivateResource(_resourceType);
         }
     }
 }

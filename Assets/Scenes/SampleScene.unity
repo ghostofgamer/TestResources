@@ -384,6 +384,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8402217179507385250, guid: 134d62d33db21b84eb10c6fed8037b92, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1078551767}
+    - targetCorrespondingSourceObject: {fileID: 8402217179507385250, guid: 134d62d33db21b84eb10c6fed8037b92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1078551768}
   m_SourcePrefab: {fileID: 100100000, guid: 134d62d33db21b84eb10c6fed8037b92, type: 3}
 --- !u!4 &218826489 stripped
 Transform:
@@ -487,7 +490,7 @@ MonoBehaviour:
   _metalValueText: {fileID: 849082178}
   _woodValueText: {fileID: 841956438}
   _stoneValueText: {fileID: 1939243035}
-  _factory: {fileID: 1078551767}
+  _factoryStorage: {fileID: 0}
 --- !u!1001 &460838345
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1679,6 +1682,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delay: 3
   _resourceTypes: 000000000100000002000000
+  _storageFactory: {fileID: 1078551768}
+--- !u!114 &1078551768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078551763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956828dd089a8204f9cd43c6eb503878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1209721440
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,7 +2697,7 @@ MonoBehaviour:
   - {fileID: 6740472065458444710, guid: e2ceba48ad156984182b226a6e61c1d4, type: 3}
   - {fileID: 4570883880478901379, guid: 4548754ebbc8b044d8320c34f53fa562, type: 3}
   - {fileID: 7739335873481230956, guid: 3c2ab0015d378774bb0aa9204dad820c, type: 3}
-  _initialPoolSize: 30
+  _initialPoolSize: 3
   _container: {fileID: 61170945}
 --- !u!1 &1769977328
 GameObject:
