@@ -56,15 +56,12 @@ namespace FactoryContent
             {
                 case ResourceType.Stone:
                     StoneValue++;
-                    Debug.Log("Stone");
                     break;
                 case ResourceType.Metal:
                     MetalValue++;
-                    Debug.Log("Metal");
                     break;
                 case ResourceType.Wood:
                     WoodValue++;
-                    Debug.Log("Wood");
                     break;
                 default:
                     Debug.Log("Unknown resource type");

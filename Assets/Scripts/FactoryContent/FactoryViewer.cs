@@ -33,7 +33,7 @@ namespace FactoryContent
             _stoneValueText.text = _factory.StoneValue.ToString();
             _woodValueText.text = _factory.WoodValue.ToString();
             
-            Debug.Log("Show");
+            // Debug.Log("Show");
         }
     }
 }
