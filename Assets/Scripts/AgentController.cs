@@ -1,4 +1,5 @@
 using ItemsContent;
+using StorageTableContent;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +9,8 @@ public class AgentController : MonoBehaviour
     [SerializeField] private ResourcesArea _resourcesArea;
     [SerializeField] private Transform _table;
     [SerializeField] private Transform _startPosition;
-    [SerializeField] private Transform[] _targets;
+    // [SerializeField] private Transform[] _targets;
+    [SerializeField] private StorageTable[] _storageTables;
 
     private Resource _resource;
     private NavMeshAgent _agent;
@@ -33,7 +35,7 @@ public class AgentController : MonoBehaviour
                 if (!_hasItem && !isReturning)
                 {
                     PickUpItem();
-                    _agent.SetDestination(_targets[_currentTargetIndex].position);
+                    _agent.SetDestination(_storageTables[_currentTargetIndex].TransformPoint.position);
                 }
                 else if (!isReturning)
                 {
@@ -70,7 +72,17 @@ public class AgentController : MonoBehaviour
     private void DropItem()
     {
         _resource.transform.parent = null;
-        _resource.transform.position = _targets[0].position;
+        
+        if (_storageTables[_currentTargetIndex].ResourceType != _resource.Type)
+        {
+            _resource.gameObject.SetActive(false);
+        }
+        else
+        {
+            _resource.transform.position = _storageTables[_currentTargetIndex].ResourcePoint.position;
+            _storageTables[_currentTargetIndex].AddResource();
+        }
+        
         _hasItem = false;
         GoToDefaultPosition();
     }

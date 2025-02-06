@@ -22,10 +22,5 @@ public class ResourcesArea : MonoBehaviour
         Resource tempResource = _resource; 
         _resource = null; 
         return tempResource;
-        
-        /*
-        IsBusy = false;
-        return _resource;
-        _resource = null;*/
     }
 }
